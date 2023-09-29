@@ -4,10 +4,10 @@ import 'package:cosmic_food_app/features/cosmic_food/common/presentation/provide
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../common/presentation/widgets/custom_button.dart';
+import '../../../common/presentation/widgets/custom_input_text_field.dart';
+import '../../../common/presentation/widgets/text_types.dart';
 import '../../../home/presentation/pages/home_pages.dart';
-import '../widgets/custom_input_text_field.dart';
-import '../widgets/custom_submit_button.dart';
-import '../widgets/text_types.dart';
 
 class UserSignInPage extends StatelessWidget {
   UserSignInPage({super.key});
@@ -60,28 +60,58 @@ class UserSignInPage extends StatelessWidget {
               child: const TextHeader(
                 text: "SIGN IN",
                 color: AppColors.secondary01,
+                fontsize: 35,
+                fontWeight: FontWeight.w900,
               ),
             ),
             const SizedBox(
               height: 20,
             ),
             CustomInputField(
+              pSizedBoxHeight: 50,
               size: size,
+              fSContainerBorderColor: AppColors.secondary01,
+              fSContainerColor: AppColors.secondary01,
+              fSSizedBoxHeight: 55,
               controller: emailController,
-              hintText: "ENTER E-MAIL",
+              hintText: "Enter E-mail",
+              isFilled: true,
+              fontSize: 20,
+              fillColor: AppColors.primary02,
+              textFieldBorderColors: AppColors.secondary01,
+              textColors: AppColors.secondary01,
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             CustomInputField(
+              pSizedBoxHeight: 50,
               size: size,
+              fSContainerBorderColor: AppColors.secondary01,
+              fSContainerColor: AppColors.secondary01,
+              fSSizedBoxHeight: 55,
               controller: passwordController,
-              hintText: "ENTER PASSWORD",
+              hintText: "Enter Password",
+              isFilled: true,
+              fontSize: 20,
+              fillColor: AppColors.primary02,
+              textFieldBorderColors: AppColors.secondary01,
+              textColors: AppColors.secondary01,
             ),
             const SizedBox(
               height: 30,
             ),
-            CustomSubmitButton(
+            CustomButton(
+              pSizedBoxHeight: 70,
+              pSizedBoxWidth: size.width / 4,
+              fSContainerBorderColor: AppColors.secondary01,
+              fSContainerColor: AppColors.secondary01,
+              fSradius: 20,
+              textColor: AppColors.secondary01,
+              fSSizedBoxHeight: 55,
+              fSSizedBoxWidth: size.width,
+              buttonRadius: 20,
+              fontWeight: FontWeight.w900,
+              buttonTextFontSize: 30,
+              buttonText: "Submit",
               callbackFunction: () async {
                 await userNotifer.signInUser(
                     emailController.text, passwordController.text, context);
@@ -93,11 +123,13 @@ class UserSignInPage extends StatelessWidget {
 
                 await Future.delayed(const Duration(milliseconds: 100),
                     () async {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => Homepage(),
-                    ),
-                  );
+                  if (commonNotifier.users != null) {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => Homepage(),
+                      ),
+                    );
+                  }
                 });
 
                 // clear controllers

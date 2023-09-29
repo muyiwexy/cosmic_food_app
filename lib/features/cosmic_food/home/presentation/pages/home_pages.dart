@@ -1,9 +1,9 @@
 import 'package:cosmic_food_app/core/utils/colors.dart';
 import 'package:cosmic_food_app/features/cosmic_food/common/presentation/provider/common_provider.dart';
-import 'package:cosmic_food_app/features/cosmic_food/home/presentation/widgets/search_text_field.dart';
-import 'package:cosmic_food_app/features/cosmic_food/orders/presentation/pages/orders_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../widgets/build_body.dart';
 
 class Homepage extends StatelessWidget {
   Homepage({super.key});
@@ -17,119 +17,43 @@ class Homepage extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.primary02,
       drawer: const Drawer(),
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: AppColors.primary02,
-        leading: _buildLeading(),
-        leadingWidth: 100,
-        title: const Text("Home",
-            style: TextStyle(
-              fontSize: 25,
-              fontFamily: "Poppins",
-              fontWeight: FontWeight.w900,
-              fontStyle: FontStyle.normal,
+      appBar: _buildAppBar(),
+      body: BuildBody(
+        size: size,
+        commonProvider: commonProvider,
+        searchController: searchController,
+      ),
+    );
+  }
+
+  AppBar _buildAppBar() {
+    return AppBar(
+      elevation: 0,
+      backgroundColor: AppColors.primary02,
+      leading: _buildLeading(),
+      leadingWidth: 100,
+      title: const Text("Home",
+          style: TextStyle(
+            fontSize: 25,
+            fontFamily: "Poppins",
+            fontWeight: FontWeight.w900,
+            fontStyle: FontStyle.normal,
+            color: AppColors.secondary01,
+          )),
+      centerTitle: true,
+      actions: [
+        IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.notifications_none_outlined,
+              size: 30,
               color: AppColors.secondary01,
             )),
-        centerTitle: true,
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.notifications_none_outlined,
-                size: 30,
-                color: AppColors.secondary01,
-              )),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
-            child: CircleAvatar(),
-          )
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: SizedBox(
-                height: 90,
-                width: size.width,
-                child: Stack(
-                  children: [
-                    Text(
-                      "Welcome, ${commonProvider.users!.name}",
-                      style: const TextStyle(
-                        fontSize: 30,
-                        fontFamily: "Poppins",
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: 0.01,
-                      ),
-                    ),
-                    const Positioned(
-                        bottom: 0,
-                        left: 0,
-                        child: Text(
-                          "Satisfy your belly to the maximum ",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontFamily: "Poppins",
-                            fontWeight: FontWeight.w500,
-                            letterSpacing: 0.01,
-                          ),
-                        ))
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20, top: 10),
-              child: SizedBox(
-                height: 60,
-                width: double.infinity,
-                child: Stack(
-                  alignment: Alignment.topCenter,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 5),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 3.0,
-                          color: AppColors.secondary01,
-                        ),
-                        borderRadius: BorderRadius.circular(20),
-                        color: AppColors.primary02,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 55,
-                      width: double.infinity,
-                      child: SearchText(
-                        size: size,
-                        textEditingController: searchController,
-                        fillColor: AppColors.primary02,
-                        isFilled: true,
-                        fontSize: 20,
-                        hintText: "Search Vendor",
-                        textColors: AppColors.secondary01,
-                        textFieldBorderColors: AppColors.secondary01,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => OrdersPage(),
-                    ),
-                  );
-                },
-                child: Text("data"))
-          ],
-        ),
-      ),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          child: CircleAvatar(),
+        )
+      ],
     );
   }
 

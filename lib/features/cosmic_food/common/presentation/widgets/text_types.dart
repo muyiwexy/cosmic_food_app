@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 
 class TextHeader extends StatelessWidget {
   final String text;
+  final double fontsize;
   final Color color;
+  final FontWeight fontWeight;
   const TextHeader({
     super.key,
     required this.text,
     required this.color,
+    required this.fontsize,
+    required this.fontWeight,
   });
 
   @override
@@ -14,9 +18,9 @@ class TextHeader extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-        fontSize: 35,
+        fontSize: fontsize,
         fontFamily: "Poppins",
-        fontWeight: FontWeight.w900,
+        fontWeight: fontWeight,
         fontStyle: FontStyle.normal,
         color: color,
       ),
