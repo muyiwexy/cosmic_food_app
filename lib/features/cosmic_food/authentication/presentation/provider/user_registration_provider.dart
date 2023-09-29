@@ -2,6 +2,7 @@ import 'package:cosmic_food_app/features/cosmic_food/authentication/domain/entit
 import 'package:cosmic_food_app/features/cosmic_food/authentication/domain/usecases/user_login.dart';
 import 'package:cosmic_food_app/features/cosmic_food/authentication/domain/usecases/user_sign_up.dart';
 import 'package:cosmic_food_app/features/cosmic_food/authentication/presentation/pages/sign_in_page.dart';
+import 'package:cosmic_food_app/features/cosmic_food/common/presentation/provider/common_provider.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
@@ -51,6 +52,23 @@ class UserRegProvider extends ChangeNotifier {
     required this.userSignUp,
   });
 
+  ErrorType getErrorTypeFromStatusCode(int statusCode) {
+    switch (statusCode) {
+      case 404:
+        return ErrorType.notFound;
+      case 401:
+        return ErrorType.unauthorized;
+      case 400:
+        return ErrorType.badRequest;
+      case 500:
+        return ErrorType.serverError;
+      default:
+        return ErrorType.serverError;
+    }
+  }
+ 
+  showSnackBar(String errorMessage, context){ }
+
   //! user login/sign in event
   signInUser(String email, String password, context) async {
     _setIsLoading(true);
@@ -62,6 +80,11 @@ class UserRegProvider extends ChangeNotifier {
     result!.fold((failure) {
       if (failure is ServerFailure) {
         _setErrorMessage(ErrorMessage(code: failure.code));
+
+        // get error deatils from status code
+       ErrorType errorType = getErrorTypeFromStatusCode(failure.code);
+        // display snakbar with error message 
+       showSnackBar(errorType.errorMessage, context);
 
         // show error message and display it using a snackbar
         _setIsLoading(false);
@@ -85,7 +108,12 @@ class UserRegProvider extends ChangeNotifier {
     // error handling
     result!.fold((failure) {
       if (failure is ServerFailure) {
-        _setErrorMessage(ErrorMessage(code: failure.code));
+        _setErrorMessage(
+          ErrorMessage(
+            code: failure.code,
+            message: 'Problem dey',
+          ),
+        );
 
         _setIsLoading(false);
       }
@@ -107,8 +135,9 @@ class UserRegProvider extends ChangeNotifier {
 // Error message class
 class ErrorMessage extends Equatable {
   final int? code;
-  const ErrorMessage({required this.code});
+  final String? message;
+  const ErrorMessage({required this.code, this.message});
 
   @override
-  List<Object?> get props => [code];
+  List<Object?> get props => [code, message];
 }

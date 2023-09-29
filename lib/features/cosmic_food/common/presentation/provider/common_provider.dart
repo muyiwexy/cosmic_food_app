@@ -5,6 +5,20 @@ import '../../../../../core/errors/failures.dart';
 import '../../domain/entities/common_cosmic_food.dart';
 import '../../domain/usecases/get_user.dart';
 
+enum ErrorType {
+  notFound(404, 'Not found', 'we did not find your user ooh'),
+  unauthorized(401, 'Unauthorized', 'omo no vex you no get access'),
+  badRequest(400, 'Bad request', 'network no dey '),
+  serverError(500, 'Server error', 'our server don close');
+
+  const ErrorType(this.code, this.errorTitle, this.errorMessage);
+  final int code;
+  final String errorTitle;
+  final String errorMessage;
+}
+
+
+
 class CommonProvider extends ChangeNotifier {
   //! Initializing the usecases
   final GetUser getUser;
