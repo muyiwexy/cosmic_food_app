@@ -1,19 +1,17 @@
 import 'package:cosmic_food_app/features/cosmic_food/authentication/domain/entities/user_reg_cosmic_food.dart';
-import 'package:cosmic_food_app/features/cosmic_food/authentication/domain/usecases/get_user.dart';
 import 'package:cosmic_food_app/features/cosmic_food/authentication/domain/usecases/user_login.dart';
 import 'package:cosmic_food_app/features/cosmic_food/authentication/domain/usecases/user_sign_up.dart';
 import 'package:cosmic_food_app/features/cosmic_food/authentication/presentation/pages/sign_in_page.dart';
-import 'package:cosmic_food_app/features/cosmic_food/home/presentation/pages/home_pages.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/errors/failures.dart';
+import '../../../common/domain/entities/common_cosmic_food.dart';
 
 class UserRegProvider extends ChangeNotifier {
   //! Initializing the usecases
   final UserLogin userLogin;
   final UserSignUp userSignUp;
-  final GetUser getUser;
 
   //! Loading state
   bool _isLoading = false;
@@ -48,10 +46,10 @@ class UserRegProvider extends ChangeNotifier {
   }
 
   //! initializing user Login and user sign up
-  UserRegProvider(
-      {required this.userLogin,
-      required this.userSignUp,
-      required this.getUser});
+  UserRegProvider({
+    required this.userLogin,
+    required this.userSignUp,
+  });
 
   //! user login/sign in event
   signInUser(String email, String password, context) async {
@@ -73,32 +71,7 @@ class UserRegProvider extends ChangeNotifier {
       }
     }, (usersLogin) async {
       _setUsersLogin(usersLogin);
-      // executes the GetUser usecase
-      final result = await getUser.execute();
-
-      // error handling
-      result!.fold((failure) {
-        if (failure is ServerFailure) {
-          _setErrorMessage(ErrorMessage(code: failure.code));
-
-          /// show error message and display it using the fold method
-          /// from the dartz package
-          _setIsLoading(false);
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text("this is get user error code: ${errorMessage!.code}"),
-          ));
-        }
-      }, (users) {
-        _setIsLoading(false);
-        _setUsers(users);
-
-        // Navigates to the home page on successful authentication
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => Homepage(users: users),
-          ),
-        );
-      });
+      _setIsLoading(false);
     });
   }
 

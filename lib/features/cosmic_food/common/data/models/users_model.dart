@@ -1,4 +1,4 @@
-import '../../domain/entities/user_reg_cosmic_food.dart';
+import '../../domain/entities/common_cosmic_food.dart';
 
 // ignore: must_be_immutable
 class UsersModel extends Users {

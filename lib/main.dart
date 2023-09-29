@@ -1,4 +1,5 @@
 import 'package:cosmic_food_app/features/cosmic_food/authentication/presentation/provider/user_registration_provider.dart';
+import 'package:cosmic_food_app/features/cosmic_food/common/presentation/provider/common_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +20,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (_) => serviceLocator<CommonProvider>(),
+        ),
         ChangeNotifierProvider(
           create: (_) => serviceLocator<UserRegProvider>(),
         ),

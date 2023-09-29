@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../../../core/errors/failures.dart';
-import '../entities/user_reg_cosmic_food.dart';
+import '../../../common/domain/entities/common_cosmic_food.dart';
 import '../repositories/user_registration_repository.dart';
 
 class UserSignUp {

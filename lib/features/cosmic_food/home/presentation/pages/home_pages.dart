@@ -1,17 +1,19 @@
 import 'package:cosmic_food_app/core/utils/colors.dart';
-import 'package:cosmic_food_app/features/cosmic_food/authentication/domain/entities/user_reg_cosmic_food.dart';
+import 'package:cosmic_food_app/features/cosmic_food/common/presentation/provider/common_provider.dart';
 import 'package:cosmic_food_app/features/cosmic_food/home/presentation/widgets/search_text_field.dart';
+import 'package:cosmic_food_app/features/cosmic_food/orders/presentation/pages/orders_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Homepage extends StatelessWidget {
-  final Users users;
-  Homepage({super.key, required this.users});
+  Homepage({super.key});
 
   final TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    CommonProvider commonProvider = context.watch<CommonProvider>();
     return Scaffold(
       backgroundColor: AppColors.primary02,
       drawer: const Drawer(),
@@ -55,7 +57,7 @@ class Homepage extends StatelessWidget {
                 child: Stack(
                   children: [
                     Text(
-                      "Welcome, ${users.name}",
+                      "Welcome, ${commonProvider.users!.name}",
                       style: const TextStyle(
                         fontSize: 30,
                         fontFamily: "Poppins",
@@ -116,6 +118,15 @@ class Homepage extends StatelessWidget {
                 ),
               ),
             ),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => OrdersPage(),
+                    ),
+                  );
+                },
+                child: Text("data"))
           ],
         ),
       ),

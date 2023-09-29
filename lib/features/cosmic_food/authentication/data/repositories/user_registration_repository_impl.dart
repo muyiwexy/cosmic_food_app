@@ -6,6 +6,8 @@ import 'package:cosmic_food_app/features/cosmic_food/authentication/domain/entit
 import 'package:cosmic_food_app/features/cosmic_food/authentication/domain/repositories/user_registration_repository.dart';
 import 'package:dartz/dartz.dart';
 
+import '../../../common/domain/entities/common_cosmic_food.dart';
+
 class UserRegistrationRepositoryImpl implements UserRegRepo {
   UserRegRemoteDataSouce userRegRemoteDataSouce;
   NetworkStatus networkStatus;
@@ -38,20 +40,6 @@ class UserRegistrationRepositoryImpl implements UserRegRepo {
       try {
         final remoteReg =
             await userRegRemoteDataSouce.userSignUp(name!, email!, password!);
-        return Right(remoteReg);
-      } on AppwriteException catch (e) {
-        return Left(ServerFailure(code: e.code!));
-      }
-    } else {
-      return const Left(ServerFailure(code: 404));
-    }
-  }
-
-  @override
-  Future<Either<Failure, Users>>? getUsers() async {
-    if (await networkStatus.isConnected) {
-      try {
-        final remoteReg = await userRegRemoteDataSouce.getUsers();
         return Right(remoteReg);
       } on AppwriteException catch (e) {
         return Left(ServerFailure(code: e.code!));
