@@ -74,10 +74,10 @@ class Vendors extends Equatable {
 
 class FoodType extends Equatable {
   String? id;
-  String? name;
-  List<String>? foodname;
+  String? foodType;
+  List<String>? foods;
 
-  FoodType({required this.id, required this.name, required this.foodname});
+  FoodType({required this.id, required this.foodType, required this.foods});
   @override
-  List<Object?> get props => [id, name, foodname];
+  List<Object?> get props => [id, foodType, foods];
 }

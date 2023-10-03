@@ -26,7 +26,7 @@ class MobileHomePage extends StatelessWidget {
                 children: [
                   Positioned.fill(
                     child: Image.asset(
-                      "assets/images/welcome/amirali-mirhashemian-sc5sTPMrVfk-unsplash.jpg",
+                      "assets/images/welcome/hamburger.jpg",
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -36,7 +36,7 @@ class MobileHomePage extends StatelessWidget {
                     child: CircleAvatar(
                       radius: 50,
                       backgroundImage: AssetImage(
-                        "assets/images/welcome/amirali-mirhashemian-sc5sTPMrVfk-unsplash.jpg",
+                        "assets/images/welcome/hamburger.jpg",
                       ),
                     ),
                   ),
@@ -169,7 +169,7 @@ class MobileHomePage extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 20.0),
           child: CircleAvatar(
             backgroundImage: AssetImage(
-              "assets/images/welcome/amirali-mirhashemian-sc5sTPMrVfk-unsplash.jpg",
+              "assets/images/welcome/hamburger.jpg",
             ),
           ),
         )

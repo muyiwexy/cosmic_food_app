@@ -3,19 +3,19 @@ import 'package:cosmic_food_app/features/cosmic_food/common/domain/entities/comm
 // ignore: must_be_immutable
 class FoodtypeModel extends FoodType {
   FoodtypeModel(
-      {required super.id, required super.name, required super.foodname});
+      {required super.id, required super.foodType, required super.foods});
 
   factory FoodtypeModel.fromJson(Map<String, dynamic> json) => FoodtypeModel(
         id: json['\u0024id'],
-        name: json['foodtype'],
-        foodname: List<String>.from(json['food']),
+        foodType: json['foodtype'],
+        foods: List<String>.from(json['food']),
       );
 
   Map<String, dynamic> toJson() {
     return {
       '\u0024id': id,
-      'foodtype': name,
-      'food': foodname,
+      'foodtype': foodType,
+      'food': foods,
     };
   }
 }
