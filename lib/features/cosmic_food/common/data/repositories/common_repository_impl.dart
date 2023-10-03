@@ -23,7 +23,37 @@ class CommonRepoImpl implements CommonRepo {
         return Left(ServerFailure(code: e.code!));
       }
     } else {
-      return const Left(ServerFailure(code: 404));
+      return const Left(ServerFailure(code: 600));
+    }
+  }
+
+  @override
+  Future<Either<Failure, FoodType>>? getFoodTypes() async {
+    if (await networkStatus.isConnected) {
+      try {
+        final remoteReg = await commonDataSource.getFoodTypes();
+        return Right(remoteReg);
+      } on AppwriteException catch (e) {
+        print(e.message);
+        return Left(ServerFailure(code: e.code!));
+      }
+    } else {
+      return const Left(ServerFailure(code: 600));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Vendors>>? getVendors() async {
+    if (await networkStatus.isConnected) {
+      try {
+        final remoteReg = await commonDataSource.getVendors();
+        return Right(remoteReg);
+      } on AppwriteException catch (e) {
+        print(e.message);
+        return Left(ServerFailure(code: e.code!));
+      }
+    } else {
+      return const Left(ServerFailure(code: 600));
     }
   }
 }

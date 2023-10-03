@@ -9,12 +9,12 @@ class BuildBody extends StatelessWidget {
   const BuildBody({
     super.key,
     required this.size,
-    required this.commonProvider,
+    required this.usersProvider,
     required this.searchController,
   });
 
   final Size size;
-  final CommonProvider commonProvider;
+  final UsersProvider usersProvider;
   final TextEditingController searchController;
 
   @override
@@ -31,7 +31,7 @@ class BuildBody extends StatelessWidget {
               child: Stack(
                 children: [
                   TextHeader(
-                      text: "Welcome, ${commonProvider.users!.name}",
+                      text: "Welcome, ${usersProvider.users!.name}",
                       color: AppColors.secondary01,
                       fontsize: 28,
                       fontWeight: FontWeight.w900),

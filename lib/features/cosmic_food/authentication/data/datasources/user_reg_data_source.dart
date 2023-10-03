@@ -15,6 +15,7 @@ class UserRegRemoteDataSouceImpl extends UserRegRemoteDataSouce {
   late final Account account;
 
   UserRegRemoteDataSouceImpl({required this.client, required this.account});
+
   @override
   Future<UsersLoginModel> userLogin(String email, String password) async {
     final response =
@@ -22,7 +23,6 @@ class UserRegRemoteDataSouceImpl extends UserRegRemoteDataSouce {
     final mappedResponse = response.toMap();
     final jsonResponse = json.encode(mappedResponse);
     final decodedJsonResponse = json.decode(jsonResponse);
-    print(decodedJsonResponse);
     return UsersLoginModel.fromMap(decodedJsonResponse);
   }
 

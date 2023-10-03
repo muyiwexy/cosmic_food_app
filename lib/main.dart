@@ -1,11 +1,13 @@
-import 'package:cosmic_food_app/features/cosmic_food/authentication/presentation/provider/user_registration_provider.dart';
-import 'package:cosmic_food_app/features/cosmic_food/common/presentation/provider/common_provider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'features/cosmic_food/authentication/presentation/provider/user_registration_provider.dart';
+import 'features/cosmic_food/common/presentation/provider/common_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'features/cosmic_food/authentication/presentation/pages/welcome_page.dart';
-import 'package:cosmic_food_app/service_locator.dart' as sl;
-import 'package:cosmic_food_app/service_locator.dart';
+import 'service_locator.dart' as sl;
+import 'service_locator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,15 +23,17 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => serviceLocator<CommonProvider>(),
+          create: (_) => serviceLocator<UsersProvider>(),
         ),
         ChangeNotifierProvider(
           create: (_) => serviceLocator<UserRegProvider>(),
         ),
       ],
-      child: const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Welcome(),
+      child: ScreenUtilInit(
+        builder: (context, widget) => const MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: UserWelcomePage(),
+        ),
       ),
     );
   }

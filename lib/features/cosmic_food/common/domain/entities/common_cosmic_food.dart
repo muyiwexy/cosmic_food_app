@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:cosmic_food_app/features/cosmic_food/common/data/models/foodtype_model.dart';
 import 'package:equatable/equatable.dart';
 
 class Users extends Equatable {
@@ -55,4 +56,28 @@ class Users extends Equatable {
         phoneVerification,
         accessedAt
       ];
+}
+
+class Vendors extends Equatable {
+  String? id;
+  String? name;
+  List<FoodtypeModel>? foodtype;
+
+  Vendors({
+    required this.id,
+    required this.name,
+    required this.foodtype,
+  });
+  @override
+  List<Object?> get props => [id, name, foodtype];
+}
+
+class FoodType extends Equatable {
+  String? id;
+  String? name;
+  List<String>? foodname;
+
+  FoodType({required this.id, required this.name, required this.foodname});
+  @override
+  List<Object?> get props => [id, name, foodname];
 }

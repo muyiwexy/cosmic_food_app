@@ -1,7 +1,7 @@
+import 'package:cosmic_food_app/features/cosmic_food/common/presentation/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/colors.dart';
-import '../../../common/presentation/widgets/search_text_field.dart';
 
 class SearchBox extends StatelessWidget {
   const SearchBox({
@@ -35,9 +35,8 @@ class SearchBox extends StatelessWidget {
           SizedBox(
             height: 55,
             width: double.infinity,
-            child: SearchText(
-              size: size,
-              textEditingController: searchController,
+            child: AppTextField(
+              controller: searchController,
               fillColor: AppColors.primary02,
               isFilled: true,
               fontSize: 20,

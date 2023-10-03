@@ -1,9 +1,9 @@
 import 'package:appwrite/appwrite.dart';
-import 'package:cosmic_food_app/core/errors/failures.dart';
-import 'package:cosmic_food_app/core/networks/network_status.dart';
-import 'package:cosmic_food_app/features/cosmic_food/authentication/data/datasources/user_reg_data_source.dart';
-import 'package:cosmic_food_app/features/cosmic_food/authentication/domain/entities/user_reg_cosmic_food.dart';
-import 'package:cosmic_food_app/features/cosmic_food/authentication/domain/repositories/user_registration_repository.dart';
+import '../../../../../core/errors/failures.dart';
+import '../../../../../core/networks/network_status.dart';
+import '../datasources/user_reg_data_source.dart';
+import '../../domain/entities/user_reg_cosmic_food.dart';
+import '../../domain/repositories/user_registration_repository.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../../common/domain/entities/common_cosmic_food.dart';
@@ -24,11 +24,12 @@ class UserRegistrationRepositoryImpl implements UserRegRepo {
             await userRegRemoteDataSouce.userLogin(email!, password!);
         return Right(remoteReg);
       } on AppwriteException catch (e) {
+        print("this is the error code ${e.code} and the error message ${e.message}");
         return Left(ServerFailure(code: e.code!));
       }
     } else {
       return const Left(
-        ServerFailure(code: 404),
+        ServerFailure(code: 600),
       );
     }
   }
@@ -42,10 +43,11 @@ class UserRegistrationRepositoryImpl implements UserRegRepo {
             await userRegRemoteDataSouce.userSignUp(name!, email!, password!);
         return Right(remoteReg);
       } on AppwriteException catch (e) {
+        print("this is the error code ${e.code} and the error message ${e.message}");
         return Left(ServerFailure(code: e.code!));
       }
     } else {
-      return const Left(ServerFailure(code: 404));
+      return const Left(ServerFailure(code: 600));
     }
   }
 }
